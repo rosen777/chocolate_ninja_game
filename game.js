@@ -1,4 +1,4 @@
-const game = new Phaser.Game(800, 600, Phaser.CANVAS, '', {
+const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
   preload: preload,
   create: create,
   update: update
@@ -12,11 +12,28 @@ const game = new Phaser.Game(800, 600, Phaser.CANVAS, '', {
   let cursors
   let player
 
+  let firePositions = [
+    {
+      x: 250,
+      y: 500
+    },{
+      x: 200,
+      y: 300
+    },{
+      x: 430,
+      y: 400
+    }
+  ]
+
+
+
+
   function preload () {
     // Load & Define our game assets
     game.load.image('sky', 'assets/sky.png')
     game.load.image('ground', 'assets/platform.png')
     game.load.image('chocolate', 'assets/chocolate.png')
+    game.load.image('fire', 'assets/fire.png')
     game.load.spritesheet('ninja', 'assets/ninja.png', 32, 48)
   }
 
@@ -37,6 +54,17 @@ function create() {
   let ledge = platforms.create(400, 450, 'ground')
   ledge.body.immovable = true
 
+  fires = game.add.group()
+  fires.enableBody = true
+
+
+firePositions.forEach(pos => {
+  var fire = fires.create(pos.x, pos.y, 'fire');
+  fire.body.setCircle(16);
+})
+
+
+
   ledge = platforms.create(-75, 350, 'ground')
   ledge.body.immovable = true
 
@@ -45,6 +73,7 @@ function create() {
   player.body.bounce.y = 0.2
   player.body.gravity.y = 800
   player.body.collideWorldBounds = true
+
 
   player.animations.add('left', [0, 1, 2, 3], 10, true);
   player.animations.add('right', [5, 6, 7, 8], 10, true);
@@ -71,7 +100,9 @@ function update() {
   game.physics.arcade.collide(player, platforms)
   game.physics.arcade.collide(chocolates, platforms)
   game.physics.arcade.overlap(player, chocolates, collectChocolate, null, this)
+  game.physics.arcade.overlap(player, fires, killPlayer)
 
+  game.debug.spriteBounds(player)
 
   if (cursors.left.isDown) {
     player.body.velocity.x = -150
@@ -92,6 +123,12 @@ function update() {
     score = 0
     restart()
   }
+}
+
+function killPlayer(player, fire) {
+  alert('Game Over\nEat more chocolate to do better next time, ninja!')
+  score = 0
+  restart()
 }
 
 function collectChocolate (player, chocolate) {
