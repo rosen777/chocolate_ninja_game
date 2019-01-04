@@ -10,17 +10,20 @@
 //   }
 // }
 
+let titlescreen
+let title
+let input
+let txt
+let username
+
 let Game = {
 
 }
 
+
 Game.MainMenu = function(game) {
 
 }
-
-let titlescreen
-let title
-let input
 
 Game.MainMenu.prototype = {
   preload: function() {
@@ -36,13 +39,27 @@ Game.MainMenu.prototype = {
     game.load.spritesheet('ninja', 'assets/ninja.png', 32, 48)
 
 
+    game.state.add('UserMenu', Game.UserMenu)
     game.state.add('MainMenu', Game.MainMenu)
     game.state.add('Level1', Game.Level1)
     game.state.add('Level2', Game.Level2)
     game.state.add('Level3', Game.Level3)
-    game.state.start('MainMenu')
-    console.log(game.add)
   },
+
+  createButton:function(game, string, x, y, w, h, callback) {
+   let button1 = game.add.button(x, y, 'button', callback, this, 2,1,0)
+
+   button1.anchor.setTo(0.5,0.5)
+   button1.width = w
+   button1.height = h
+
+  txt = game.add.text(button1.x, button1.y, string, {font: "14px Arial",
+   fill:"#fff", align:"center"})
+
+   txt.anchor.setTo(0.5,0.5)
+   console.log(button1)
+   console.log(this)
+ },
 
   create:function(game) {
     console.log(this)
@@ -52,19 +69,28 @@ Game.MainMenu.prototype = {
 
     title = game.add.text(game.world.centerY, 30, 'CHOCOLATE NINJA', {fontSize: '32px', fill: '#b1572c'})
 
-    let submitBtn = this.createButton(game, "SUBMIT", game.world.centerX + 200, game.world.centerY - 40, 150, 50)
-    
-    submitBtn.inputEnabled = true;
-    submitBtn.input.useHandCursor = true;
-    submitBtn.events.onInputDown.add(function () {
-      game.add.text(30, 10, 'Welcome Ninja ' + input.value + '!', {
-        font: '18px Arial'
-      });  
-    });
+    let submitBtn = game.add.button( game.world.centerX - 130, game.world.centerY - 15, 'button', () => {
+      submitBtn.inputEnabled = true;
+      submitBtn.input.useHandCursor = true;
+      submitBtn.events.onInputDown.add(function () {
+        game.add.text(30, 10, 'Welcome Ninja ' + input.value + '!', {
+          font: '18px Arial',
+        });
+          username = input.value
+          console.log(username)
+      });
+    }, this, 2,1,0)
+    textButton = game.add.text(370, 300, 'SUBMIT', {font: '16px Arial', fill: '#fff'})
+
+
+    // game.add.button(game, "SUBMIT", game.world.centerX + 200, game.world.centerY - 40, 150, 50)
+    submitBtn.width = 249
+    submitBtn.height = 54
 
 
 
-    this.createButton(game, "PLAY", game.world.centerX, game.world.centerY + 32,
+
+    this.createButton(game, "PLAY", game.world.centerX, game.world.centerY + 64,
     249, 54, function() {
       game.state.start('Level1')
     })
@@ -74,7 +100,7 @@ Game.MainMenu.prototype = {
     // button1.scale.setTo(0.5,0.5)
     // console.log(game.world.centerX)
     let input = game.add.inputField(290, 200, {
-      font: '18px Arial',
+      font: '12.5px Arial',
       fill: '#b1572c',
       fontWeight: 'bold',
       width: 150,
@@ -82,27 +108,12 @@ Game.MainMenu.prototype = {
       padding: 20,
       borderWidth: 10,
       borderColor: '#b1572c',
-      placeHolder: 'Your Ninja Name'
+      placeHolder: 'Your Ninja Name.\nDouble click submit.'
     })
   },
 
   update:function(game) {
 
-  },
-
-   createButton:function(game, string, x, y, w, h, callback) {
-    let button1 = game.add.button(x, y, 'button', callback, this, 2,1,0)
-
-    button1.anchor.setTo(0.5,0.5)
-    button1.width = w
-    button1.height = h
-
-    let txt = game.add.text(button1.x, button1.y, string, {font: "14px Arial",
-    fill:"#fff", align:"center"})
-
-    txt.anchor.setTo(0.5,0.5)
-    console.log(button1)
-    console.log(this)
   }
 
 }
