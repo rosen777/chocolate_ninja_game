@@ -15,6 +15,7 @@ let title
 let input
 let txt
 let username
+let chocolateBars = 0
 
 let Game = {
 
@@ -168,7 +169,6 @@ const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
       ],
 
    create:function() {
-    console.log(input)
     game.physics.startSystem(Phaser.Physics.ARCADE)
 
     game.add.sprite(0, 0, 'sky')
@@ -261,8 +261,23 @@ const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
 
   },
 
-   killPlayer: (player, fire) => {
+  killPlayer: (player, fire) => {
+    chocolateBars = parseInt(this.scoreText._text.match(/\d+/g).join(''))
+    console.log(chocolateBars);
     alert('Game Over\nEat more chocolate to do better next time, ninja!')
+    debugger
+    fetch('http://localhost:3000/api/v1/players', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: username,
+        points: chocolateBars
+      })
+    })
+      .then(resp => resp.json())
+      .then(data => console.log(data))
     this.score = 0
     console.log(game)
     game.state.start('MainMenu')
@@ -551,8 +566,26 @@ const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
 
   },
 
-   killPlayer: (player, fire) => {
+  killPlayer: (player, fire) => {
+    debugger
+    fetch('http://localhost:3000/api/v1/players', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: username,
+        // scores: [points: this.score]
+      })
+    })
+      .then(resp => resp.json())
+      .then(data => console.log(data))
+
     alert('Game Over\nEat more chocolate to do better next time, ninja!')
+    
+ 
+
+
     this.score = 0
     console.log(game)
     game.state.start('MainMenu')
