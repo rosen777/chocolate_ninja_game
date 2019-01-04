@@ -49,7 +49,7 @@ Game.MainMenu.prototype = {
     titlescreen = game.add.sprite(game.world.centerX, game.world.centerY - 192, 'titlescreen')
     titlescreen.anchor.setTo(0.5,0.5)
 
-    title = game.add.text(game.world.centerY, 30, 'CHOCOLATE NINJA', {font: "28px Arial", fill: '#b1572c'})
+    title = game.add.text(game.world.centerY, 30, 'CHOCOLATE NINJA', {fontSize: '32px', fill: '#b1572c'})
 
     this.createButton(game, "PLAY", game.world.centerX, game.world.centerY + 32,
     249, 54, function() {
@@ -115,13 +115,13 @@ const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
 
        firePositions: [
         {
-          x: 245,
+          x: 140,
           y: 316
         },{
           x: 250,
           y: 505
         },{
-          x: 441,
+          x: 490,
           y: 416
         }
       ],
@@ -168,8 +168,8 @@ const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
     chocolates = game.add.group()
     chocolates.enableBody = true
 
-    for(var i = 0; i < 9; i++) {
-      let chocolate = chocolates.create(i * 70, 0, 'chocolate')
+    for(var i = 0; i < 4; i++) {
+      let chocolate = chocolates.create(i * 210, 0, 'chocolate')
       chocolate.body.gravity.y = 1000
       chocolate.body.bounce.y = 0.3 + Math.random() * 0.2
     }
@@ -204,16 +204,16 @@ const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
       player.body.velocity.y = - 400
     }
 
-    if (this.score === 9 && this.level === 1) {
-      alert('Level 1 Complete\nThe chocolate has released dopamin for you!')
+    if (this.score === 4 && this.level === 1) {
+      alert('Level 1 Complete\nEnjoy all the dopamine from the chocolate!')
       console.log(this.score)
       this.level += 1
       game.state.start('Level2')
-    } else if (this.score == 19  && this.level === 2) {
+    } else if (this.score === 12  && this.level === 2) {
       alert('Level 2 Complete\nBe careful not to get a sugar overdose now!')
       this.level += 1
       game.state.start('Level3')
-    } else if (this.score == 30 && this.level === 3) {
+    } else if (this.score === 24 && this.level === 3) {
       alert('Level 3 Complete\nYou are the ultimate chocolate ninja!')
       game.state.start('MainMenu')
     }
@@ -246,7 +246,7 @@ const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
   Game.Level2.prototype = {
 
     // Global variables
-      score: 9,
+      score: 4,
       level: 2,
       scoreText: '',
       platforms: '',
@@ -257,13 +257,13 @@ const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
 
        firePositions: [
         {
-          x: 245,
+          x: 160,
           y: 316
         },{
-          x: 250,
+          x: 270,
           y: 505
         },{
-          x: 441,
+          x: 470,
           y: 416
         }
       ],
@@ -314,8 +314,8 @@ const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
     chocolates = game.add.group()
     chocolates.enableBody = true
 
-    for(var i = 0; i < 10; i++) {
-      let chocolate = chocolates.create(i * 70, 0, 'chocolate')
+    for(var i = 0; i < 8; i++) {
+      let chocolate = chocolates.create(i * 102, 0, 'chocolate')
       chocolate.body.gravity.y = 1000
       chocolate.body.bounce.y = 0.3 + Math.random() * 0.2
     }
@@ -350,16 +350,16 @@ const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
       player.body.velocity.y = - 400
     }
 
-    if (this.score === 9 && this.level === 1) {
+    if (this.score === 4 && this.level === 1) {
       alert('Level 1 Complete\nThe chocolate has released dopamin for you!')
       console.log(this.score)
       this.level += 1
       game.state.start('Level2')
-    } else if (this.score == 19  && this.level === 2) {
+    } else if (this.score === 12  && this.level === 2) {
       alert('Level 2 Complete\nBe careful not to get a sugar overdose now!')
       this.level += 1
       game.state.start('Level3')
-    } else if (this.score == 30 && this.level === 3) {
+    } else if (this.score === 24 && this.level === 3) {
       alert('Level 3 Complete\nYou are the ultimate chocolate ninja!')
       game.state.start('MainMenu')
     }
@@ -392,7 +392,7 @@ const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
   Game.Level3.prototype = {
 
     // Global variables
-      score: 19,
+      score: 12,
       level: 3,
       scoreText: '',
       platforms: '',
@@ -406,7 +406,7 @@ const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
           x: 243,
           y: 316
         },{
-          x: 250,
+          x: 290,
           y: 505
         },{
           x: 443,
@@ -457,7 +457,7 @@ const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
     chocolates = game.add.group()
     chocolates.enableBody = true
 
-    for(var i = 0; i < 11; i++) {
+    for(var i = 0; i < 12; i++) {
       let chocolate = chocolates.create(i * 70, 0, 'chocolate')
       chocolate.body.gravity.y = 1000
       chocolate.body.bounce.y = 0.3 + Math.random() * 0.2
@@ -494,16 +494,16 @@ const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
       player.body.velocity.y = - 400
     }
 
-    if (this.score === 9 && this.level === 1) {
+    if (this.score === 4 && this.level === 1) {
       alert('Level 1 Complete\nThe chocolate has released dopamin for you!')
       console.log(this.score)
       this.level += 1
       game.state.start('Level2')
-    } else if (this.score == 19  && this.level === 2) {
+    } else if (this.score === 12  && this.level === 2) {
       alert('Level 2 Complete\nBe careful not to get a sugar overdose now!')
       this.level += 1
       game.state.start('Level3')
-    } else if (this.score == 30 && this.level === 3) {
+    } else if (this.score === 24 && this.level === 3) {
       alert('Level 3 Complete\nYou are the ultimate chocolate ninja!')
       game.state.start('MainMenu')
     }
