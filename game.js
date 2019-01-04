@@ -20,6 +20,7 @@ Game.MainMenu = function(game) {
 
 let titlescreen
 let title
+let input
 
 Game.MainMenu.prototype = {
   preload: function() {
@@ -51,6 +52,18 @@ Game.MainMenu.prototype = {
 
     title = game.add.text(game.world.centerY, 30, 'CHOCOLATE NINJA', {fontSize: '32px', fill: '#b1572c'})
 
+    let submitBtn = this.createButton(game, "SUBMIT", game.world.centerX + 200, game.world.centerY - 40, 150, 50)
+    
+    submitBtn.inputEnabled = true;
+    submitBtn.input.useHandCursor = true;
+    submitBtn.events.onInputDown.add(function () {
+      game.add.text(30, 10, 'Welcome Ninja ' + input.value + '!', {
+        font: '18px Arial'
+      });  
+    });
+
+
+
     this.createButton(game, "PLAY", game.world.centerX, game.world.centerY + 32,
     249, 54, function() {
       game.state.start('Level1')
@@ -60,7 +73,17 @@ Game.MainMenu.prototype = {
     // button1.anchor.setTo(0.5,1.1)
     // button1.scale.setTo(0.5,0.5)
     // console.log(game.world.centerX)
-    let input = game.add.inputField(10, 90)
+    let input = game.add.inputField(290, 200, {
+      font: '18px Arial',
+      fill: '#b1572c',
+      fontWeight: 'bold',
+      width: 150,
+      height: 20,
+      padding: 20,
+      borderWidth: 10,
+      borderColor: '#b1572c',
+      placeHolder: 'Your Ninja Name'
+    })
   },
 
   update:function(game) {
@@ -134,7 +157,7 @@ const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
       ],
 
    create:function() {
-
+    console.log(input)
     game.physics.startSystem(Phaser.Physics.ARCADE)
 
     game.add.sprite(0, 0, 'sky')
