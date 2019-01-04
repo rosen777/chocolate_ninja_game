@@ -40,11 +40,11 @@ Game.MainMenu.prototype = {
     game.state.add('Level2', Game.Level2)
     game.state.add('Level3', Game.Level3)
     game.state.start('MainMenu')
+    console.log(game.add)
   },
 
   create:function(game) {
     console.log(this)
-
 
     titlescreen = game.add.sprite(game.world.centerX, game.world.centerY - 192, 'titlescreen')
     titlescreen.anchor.setTo(0.5,0.5)
@@ -60,7 +60,7 @@ Game.MainMenu.prototype = {
     // button1.anchor.setTo(0.5,1.1)
     // button1.scale.setTo(0.5,0.5)
     // console.log(game.world.centerX)
-
+    let input = game.add.inputField(10, 90)
   },
 
   update:function(game) {
@@ -86,6 +86,11 @@ Game.MainMenu.prototype = {
 
 const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
   preload: preload,
+  init: function () {
+
+        //Load the plugin
+        this.game.phaserInput = this.game.plugins.add(PhaserInput.Plugin);
+    }
 })
 
   function preload () {
@@ -93,6 +98,8 @@ const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
     game.state.add('Level1', Game.Level1)
     game.state.add('Level2', Game.Level2)
     game.state.start('MainMenu')
+
+    console.log(PhaserInput)
   }
 
   Game.Level1 = function(game) {
